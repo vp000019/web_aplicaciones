@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travels for Ukraine</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/logo.svg" alt="logo">
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="/">Travels</a></li>
+                <li class="admin" th:classappend="${isAdmin} ? 'true' : 'false'"><a href="/admin">ADMIN</a></li>
+                <li>
+                    <div>
+                        <div th:class="${isLogin} ? '' : 'not_login'">
+                            <form action="/auth/logout" method="POST">
+                                <button class="button" type="submit">Logout</button>
+                            </form>
+                        </div>
+
+                        <div th:class="${isLogin} ? 'not_login' : ''">
+                            <a href="/login">Login</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="main">
+    <h1 class="title">All users</h1>
+
+    <table class="table">
+        <tr>
+            <td><a href="/admin/users">Users</a></td>
+            <td><a href="/admin/posts">Posts</a></td>
+        </tr>
+    </table>
+
+    <table class="table">
+
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Role</th>
+            <th>Login</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Points</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+
+        <tr th:each="customer : ${customers.getItems()}">
+            <td th:text="${customer.getId()}"></td>
+            <td th:text="${customer.getCreated()}"></td>
+            <td th:text="${customer.getUpdated()}"></td>
+            <td th:text="${customer.getRole()}"></td>
+            <td th:text="${customer.getLogin()}"></td>
+            <td th:text="${customer.getFirstName()}"></td>
+            <td th:text="${customer.getLastName()}"></td>
+            <td th:text="${customer.getPhoneNumber()}"></td>
+            <td th:text="${customer.getPoints()}"></td>
+            <td th:text="${customer.getEmail()}"></td>
+        </tr>
+
+    </table>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travels for Ukraine</title>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/media-scroll.js"></script>
+    <script src="scripts/swiper.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+
+<body class="body">
+
+<header class="header">
+
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/logo.svg" alt="logo">
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="/">Travels</a></li>
+                <li class="admin" th:classappend="${isAdmin} ? 'true' : 'false'"><a href="admin/users">ADMIN</a></li>
+                <li>
+                    <div>
+                        <div th:class="${isLogin} ? '' : 'not_login'">
+                            <form action="/auth/logout" method="POST">
+                                <button class="button" type="submit">Logout</button>
+                            </form>
+                        </div>
+
+                        <div th:class="${isLogin} ? 'not_login' : ''">
+                            <a href="/login">Login</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="main page__card">
+
+    <div class="container">
+
+        <div class="description">
+
+            <img th:src="${post.getPathToImage()}" alt="">
+            <div class="description__text">
+                <h1 th:text="${post.getName()}"></h1>
+                <p th:text="${post.getDescription()}"></p>
+                <ul>
+                    <li th:text="${post.getPrice()}"></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="feedback-form">
+            <form>
+                <input type="name" placeholder="name">
+                <textarea name="message" placeholder="message"></textarea>
+                <button>Send feedback</button>
+            </form>
+        </div>
+
+        <div class="feedback">
+            <div class="feed">
+                <h4>EVANIY VROT</h4>
+                <p>I liked it all, I'll go again.</p>
+            </div>
+            <div class="feed">
+                <h4>Y SOSY PISUN</h4>
+                <p>Didn't go very well, but all in all, for the money, it's very good.</p>
+            </div>
+            <div class="feed">
+                <h4>KAKASKA2281337</h4>
+                <p>I agree with the previous</p>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="left-side">
+            <p>Subscribe to us</p>
+            <ul>
+                <li><a href="#"><img src="images/twitter.png" alt=""></a></li>
+                <li><a href="#"><img src="images/facebook.png" alt=""></a></li>
+                <li><a href="#"><img src="images/inst.png" alt=""></a></li>
+            </ul>
+        </div>
+        <div class="right-side">
+            <p>Office hours</p>
+            <ul>
+                <li> Lun: 11:00 am-01:30 pm</li>
+                <li> Mar: 05:00 pm-07:00 pm</li>
+                <li> Mié: 11:00 am-01:30 pm</li>
+                <li> Jue: 05:00 pm-07:00 pm</li>
+                <li> Vie: 11:00 am-01:30 pm</li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

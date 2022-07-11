@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travels for Ukraine</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/logo.svg" alt="logo">
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="/">Travels</a></li>
+                <li class="admin" th:classappend="${isAdmin} ? 'true' : 'false'"><a href="/admin">ADMIN</a></li>
+                <li>
+                    <div>
+                        <div th:class="${isLogin} ? '' : 'not_login'">
+                            <form action="/auth/logout" method="POST">
+                                <button class="button" type="submit">Logout</button>
+                            </form>
+                        </div>
+
+                        <div th:class="${isLogin} ? 'not_login' : ''">
+                            <a href="/login">Login</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="main">
+
+    <h1 class="title">All posts</h1>
+
+    <table class="table">
+        <tr>
+            <td><a href="/admin/users">Users</a></td>
+            <td><a href="/admin/posts">Posts</a></td>
+            <td><a href="/admin/newPost">New Post</a>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table">
+
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Price</th>
+            <th>PathToImage</th>
+            <th>UserId</th>
+        </tr>
+        </thead>
+
+        <tr th:each="post : ${posts.getItems()}">
+            <td th:text="${post.getId()}"></td>
+            <td th:text="${post.getCreated()}"></td>
+            <td th:text="${post.getUpdated()}"></td>
+            <td th:text="${post.getName()}"></td>
+            <td th:text="${post.getDescription()}"></td>
+            <td th:text="${post.getDate()}"></td>
+            <td th:text="${post.getPrice()}"></td>
+            <td th:text="${post.getPathToImage()}"></td>
+            <td th:text="${post.getUserId()}"></td>
+        </tr>
+
+    </table>
+
+</main>
+</body>
+</html>

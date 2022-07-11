@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travels for Ukraine</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/media-scroll.js"></script>
+    <script src="scripts/swiper.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+
+<body>
+
+<header class="header">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="/images/logo.svg" alt="logo">
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="/">Travels</a></li>
+                <li class="admin" th:classappend="${isAdmin} ? 'true' : 'false'"><a href="admin/users">ADMIN</a></li>
+                <li>
+                    <div>
+                        <div th:class="${isLogin} ? '' : 'not_login'">
+                            <form action="/auth/logout" method="POST">
+                                <button class="button" type="submit">Logout</button>
+                            </form>
+                        </div>
+
+                        <div th:class="${isLogin} ? 'not_login' : ''">
+                            <a href="/login">Login</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="main">
+
+    <div class="container">
+        <h1 class="title">Travels for Ukraine</h1>
+
+        <div class="cards">
+            <div class="cards__block" th:each="post : ${posts.getItems()}" th:data-item="${post.getId()}">
+                <a th:href="@{'/post/' + ${post.getId()}}" ><img th:src="${post.getPathToImage()}" alt=""></a>
+                <div class="cards__block__content">
+                    <h3 th:text="${post.getName()}"></h3>
+                    <p class="desc">
+                        <span class="fat">Date:</span> <span th:text="${post.getDate()}"></span>
+                    </p>
+                    <p class="desc">
+                        <span class="fat">Location:</span> <span th:text="${post.getName()}"></span>
+                    </p>
+                    <p class="desc">
+                       <span th:text="${post.getDescription()}"></span>
+                    </p>
+                    <div class="price">
+                        <p th:text="${post.getPrice()}"></p>
+                        <button class="buy" th:id="${post.getId()}" onclick=buyTravels(this.id)>Buy</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+            function buyTravels(idPost){
+                $.ajax({
+                    type: 'POST',
+                    url: '/registrationTravel',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    data: {id : idPost},
+                    success: function() {
+                    },
+                    error: function(XHR, textStatus) {
+                        console.log(XHR, textStatus);
+                    }
+                });
+            }
+        </script>
+
+    </div>
+</main>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="left-side">
+            <p>Subscribe to us</p>
+            <ul>
+                <li><a href="#"><img src="images/twitter.png" alt=""></a></li>
+                <li><a href="#"><img src="images/facebook.png" alt=""></a></li>
+                <li><a href="#"><img src="images/inst.png" alt=""></a></li>
+            </ul>
+        </div>
+        <div class="right-side">
+            <p>Office hours</p>
+            <ul>
+                <li> Lun: 11:00 am-01:30 pm</li>
+                <li> Mar: 05:00 pm-07:00 pm</li>
+                <li> Mié: 11:00 am-01:30 pm</li>
+                <li> Jue: 05:00 pm-07:00 pm</li>
+                <li> Vie: 11:00 am-01:30 pm</li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
